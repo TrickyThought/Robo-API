@@ -3,6 +3,27 @@ from flask import Flask, jsonify, abort, make_response, request, url_for
 
 app = Flask(__name__)
 
+@app.route('/robo/api/v1.0/moveforward<float:speed>', methods=['PUT'])
+def move_forward(speed):
+    print("MoveForward: " + speed)
+    return jsonify({'MoveForward': speed})
+
+@app.route('/robo/api/v1.0/movebackward<float:speed>', methods=['PUT'])
+def move_backward(speed):
+    print("MoveBackward: " + speed)
+    return jsonify({'MoveBackward': speed})
+
+@app.route('/robo/api/v1.0/turnleft<float:speed>', methods=['PUT'])
+def turn_left(speed):
+    print("TurnLeft: " + speed)
+    return jsonify({'TurnLeft': speed})
+
+@app.route('/robo/api/v1.0/turnright<float:speed>', methods=['PUT'])
+def turn_right(speed):
+    print("TurnRight: " + speed)
+    return jsonify({'TurnRight': speed})
+
+'''
 tasks = [
     {
         'id': 1,
@@ -71,6 +92,7 @@ def delete_task(task_id):
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+'''
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
