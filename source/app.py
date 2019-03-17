@@ -7,7 +7,7 @@ app = Flask(__name__)
 def move_forward():
     if not request.json:
         abort(400)
-    if 'speed' in request.json and type(request.json['speed']) != int:
+    if 'speed' in request.json and type(request.json['speed']) != float:
         abort(400)
     
     speed = request.json['speed']
