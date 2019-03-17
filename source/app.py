@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, abort, make_response, request, url_for
 
 import time
-import Robot
+#import Robot
 
 LEFT_TRIM   = 0
 RIGHT_TRIM  = 0
