@@ -11,22 +11,22 @@ def move_forward():
         abort(400)
     
     speed = request.json['speed']
-    print("MoveForward: " + speed)
+    print("MoveForward: " + str(speed))
     return jsonify({'MoveForward': speed})
 
 @app.route('/robo/api/v1.0/movebackward/<int:speed>', methods=['PUT'])
 def move_backward(speed):
-    print("MoveBackward: " + speed)
+    print("MoveBackward: " + str(speed))
     return jsonify({'MoveBackward': speed})
 
 @app.route('/robo/api/v1.0/turnleft/<int:speed>', methods=['PUT'])
 def turn_left(speed):
-    print("TurnLeft: " + speed)
+    print("TurnLeft: " + str(speed))
     return jsonify({'TurnLeft': speed})
 
 @app.route('/robo/api/v1.0/turnright/<int:speed>', methods=['PUT'])
 def turn_right(speed):
-    print("TurnRight: " + speed)
+    print("TurnRight: " + str(speed))
     return jsonify({'TurnRight': speed})
 
 '''
