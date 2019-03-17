@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, abort, make_response, request, url_for
 
 app = Flask(__name__)
-
+'''
 @app.route('/robo/api/v1.0/moveforward<float:speed>', methods=['PUT'])
 def move_forward(speed):
     print("MoveForward: " + speed)
@@ -92,7 +92,6 @@ def delete_task(task_id):
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
-'''
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
