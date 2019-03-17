@@ -1,34 +1,51 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, make_response, request, url_for
 
+import time
+import Robot
+
+LEFT_TRIM   = 0
+RIGHT_TRIM  = 0
+
 app = Flask(__name__)
+
+# Create an instance of the robot with the specified trim values.
+# Not shown are other optional parameters:
+#  - addr: The I2C address of the motor HAT, default is 0x60.
+#  - left_id: The ID of the left motor, default is 1.
+#  - right_id: The ID of the right motor, default is 2.
+#robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM)
 
 @app.route('/robo/api/v1.0/moveforward', methods=['PUT'])
 def move_forward():
     speed = get_speed(request)
-    print("MoveForward: " + str(speed))
+    duration = get_duration(request)
+    print("MoveForward speed: " + str(speed) + " duration:" + str(duration))
     return jsonify({'MoveForward': speed})
 
 @app.route('/robo/api/v1.0/movebackward', methods=['PUT'])
 def move_backward():
     speed = get_speed(request)
-    print("MoveBackward: " + str(speed))
+    duration = get_duration(request)
+    print("MoveBackward speed: " + str(speed) + " duration:" + str(duration))
     return jsonify({'MoveBackward': speed})
 
 @app.route('/robo/api/v1.0/moveleft', methods=['PUT'])
 def move_left():
     speed = get_speed(request)
-    print("MoveLeft: " + str(speed))
+    duration = get_duration(request)
+    print("MoveLeft speed: " + str(speed) + " duration:" + str(duration))
     return jsonify({'MoveLeft': speed})
 
 @app.route('/robo/api/v1.0/moveright', methods=['PUT'])
 def move_right():
     speed = get_speed(request)
-    print("MoveRight: " + str(speed))
+    duration = get_duration(request)
+    print("MoveRight speed: " + str(speed) + " duration:" + str(duration))
     return jsonify({'MoveRight': speed})
 
 @app.route('/robo/api/v1.0/stop', methods=['PUT'])
-def move_right():
+def stop():
     print("Stop")
     return jsonify({'Stop': true})
 
@@ -39,6 +56,14 @@ def get_speed(request):
         abort(400)
     
     return request.json['speed']
+
+def get_duration(request):
+    if not request.json:
+        abort(400)
+    if not ('duration' in request.json) or (type(request.json['duration']) != float and type(request.json['duration']) != int):
+        return None
+    
+    return request.json['duration']
 
 '''
 tasks = [
