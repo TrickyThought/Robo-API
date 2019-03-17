@@ -5,12 +5,7 @@ app = Flask(__name__)
 
 @app.route('/robo/api/v1.0/moveforward', methods=['PUT'])
 def move_forward():
-    if not request.json:
-        abort(400)
-    if not ('speed' in request.json) or (type(request.json['speed']) != float and type(request.json['speed']) != int):
-        abort(400)
-    
-    speed = request.json['speed']
+    speed = get_speed(request)
     print("MoveForward: " + str(speed))
     return jsonify({'MoveForward': speed})
 
@@ -28,6 +23,14 @@ def turn_left(speed):
 def turn_right(speed):
     print("TurnRight: " + str(speed))
     return jsonify({'TurnRight': speed})
+
+def get_speed(request):
+    if not request.json:
+        abort(400)
+    if not ('speed' in request.json) or (type(request.json['speed']) != float and type(request.json['speed']) != int):
+        abort(400)
+    
+    return request.json['speed']
 
 '''
 tasks = [
