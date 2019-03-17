@@ -21,28 +21,44 @@ def move_forward():
     speed = get_speed(request)
     duration = get_duration(request)
     print("MoveForward speed: " + str(speed) + " duration:" + str(duration))
-    return jsonify({'MoveForward': speed})
+    
+    if (duration != None):
+        return jsonify({'MoveForward': speed, 'Duration': duration})
+    else:
+        return jsonify({'MoveForward': speed})
 
 @app.route('/robo/api/v1.0/movebackward', methods=['PUT'])
 def move_backward():
     speed = get_speed(request)
     duration = get_duration(request)
     print("MoveBackward speed: " + str(speed) + " duration:" + str(duration))
-    return jsonify({'MoveBackward': speed})
+
+    if (duration != None):
+        return jsonify({'MoveBackward': speed, 'Duration': duration})
+    else:
+        return jsonify({'MoveBackward': speed})
 
 @app.route('/robo/api/v1.0/moveleft', methods=['PUT'])
 def move_left():
     speed = get_speed(request)
     duration = get_duration(request)
     print("MoveLeft speed: " + str(speed) + " duration:" + str(duration))
-    return jsonify({'MoveLeft': speed})
+
+    if (duration != None):
+        return jsonify({'MoveLeft': speed, 'Duration': duration})
+    else:
+        return jsonify({'MoveLeft': speed})
 
 @app.route('/robo/api/v1.0/moveright', methods=['PUT'])
 def move_right():
     speed = get_speed(request)
     duration = get_duration(request)
     print("MoveRight speed: " + str(speed) + " duration:" + str(duration))
-    return jsonify({'MoveRight': speed})
+
+    if (duration != None):
+        return jsonify({'MoveRight': speed, 'Duration': duration})
+    else:
+        return jsonify({'MoveRight': speed})
 
 @app.route('/robo/api/v1.0/stop', methods=['PUT'])
 def stop():
