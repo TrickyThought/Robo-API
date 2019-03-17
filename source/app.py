@@ -3,22 +3,28 @@ from flask import Flask, jsonify, abort, make_response, request, url_for
 
 app = Flask(__name__)
 
-@app.route('/robo/api/v1.0/moveforward<int:speed>', methods=['PUT'])
-def move_forward(speed):
+@app.route('/robo/api/v1.0/moveforward', methods=['PUT'])
+def move_forward():
+    if not request.json:
+        abort(400)
+    if 'speed' in request.json and type(request.json['speed']) != int:
+        abort(400)
+    
+    speed = request.json['speed']
     print("MoveForward: " + speed)
     return jsonify({'MoveForward': speed})
 
-@app.route('/robo/api/v1.0/movebackward<int:speed>', methods=['PUT'])
+@app.route('/robo/api/v1.0/movebackward/<int:speed>', methods=['PUT'])
 def move_backward(speed):
     print("MoveBackward: " + speed)
     return jsonify({'MoveBackward': speed})
 
-@app.route('/robo/api/v1.0/turnleft<int:speed>', methods=['PUT'])
+@app.route('/robo/api/v1.0/turnleft/<int:speed>', methods=['PUT'])
 def turn_left(speed):
     print("TurnLeft: " + speed)
     return jsonify({'TurnLeft': speed})
 
-@app.route('/robo/api/v1.0/turnright<int:speed>', methods=['PUT'])
+@app.route('/robo/api/v1.0/turnright/<int:speed>', methods=['PUT'])
 def turn_right(speed):
     print("TurnRight: " + speed)
     return jsonify({'TurnRight': speed})
