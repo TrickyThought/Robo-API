@@ -63,7 +63,7 @@ def move_right():
 @app.route('/robo/api/v1.0/stop', methods=['PUT'])
 def stop():
     print("Stop")
-    return jsonify({'Stop': true})
+    return jsonify({'Stop': 'true'})
 
 def get_speed(request):
     if not request.json:
