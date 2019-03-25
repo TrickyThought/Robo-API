@@ -14,13 +14,15 @@ app = Flask(__name__)
 #  - addr: The I2C address of the motor HAT, default is 0x60.
 #  - left_id: The ID of the left motor, default is 1.
 #  - right_id: The ID of the right motor, default is 2.
-#robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM)
+robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM)
 
 @app.route('/robo/api/v1.0/moveforward', methods=['PUT'])
 def move_forward():
     speed = get_speed(request)
     duration = get_duration(request)
     print("MoveForward speed: " + str(speed) + " duration:" + str(duration))
+    
+    robot.forward(speed, duration)
     
     if (duration != None):
         return jsonify({'MoveForward': speed, 'Duration': duration})
@@ -33,6 +35,8 @@ def move_backward():
     duration = get_duration(request)
     print("MoveBackward speed: " + str(speed) + " duration:" + str(duration))
 
+    robot.backward(speed, duration)
+    
     if (duration != None):
         return jsonify({'MoveBackward': speed, 'Duration': duration})
     else:
@@ -43,6 +47,8 @@ def move_left():
     speed = get_speed(request)
     duration = get_duration(request)
     print("MoveLeft speed: " + str(speed) + " duration:" + str(duration))
+
+    robot.left(speed, duration)
 
     if (duration != None):
         return jsonify({'MoveLeft': speed, 'Duration': duration})
@@ -55,6 +61,8 @@ def move_right():
     duration = get_duration(request)
     print("MoveRight speed: " + str(speed) + " duration:" + str(duration))
 
+    robot.right(speed, duration)
+    
     if (duration != None):
         return jsonify({'MoveRight': speed, 'Duration': duration})
     else:
@@ -63,6 +71,9 @@ def move_right():
 @app.route('/robo/api/v1.0/stop', methods=['PUT'])
 def stop():
     print("Stop")
+    
+    robot.stop()
+    
     return jsonify({'Stop': 'true'})
 
 def get_speed(request):
